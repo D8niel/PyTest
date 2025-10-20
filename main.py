@@ -10,6 +10,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-  return 'Hello there from Flask!'
+  return 'Hello everyone from Flask!'
+
 
 
