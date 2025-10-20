@@ -1,0 +1,37 @@
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333; /*#333, #5D5C61, green*/
+}
+
+nav li {
+  float: left;
+}
+
+nav li a {
+  display: block;
+  color: white; /* white, #379683,  */
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav li a:hover:not(.active) {
+  background-color: #111; /*red, #111*/
+}
+
+#canvas-container {
+    margin: auto; /* Center canvas container in middle of screen horizontally */
+    width: 1200px; /* Set your desired width */
+    height: 500px; /* Set your desired height */
+    overflow: auto; /* Enable scrolling */
+    border: 1px solid black;
+
+}
+
+#canvas {
+    width: 5000px; /* Occupy full width of the container */
+    height: 5000px; /* Occupy full height of the container */
+}

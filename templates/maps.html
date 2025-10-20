@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Mapping {% endblock %}</h1>
+    <div id="output">Status: </div>
+
+    <hr>
+
+    <div id="canvas-container">
+        <canvas id="canvas"></canvas>
+    </div>
+    <script>
+        // Get canvas element
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        // canvas.scrollIntoView({behavior: "smooth", inline: "center", block: "center"}); // center canvas vertically
+
+        // Set canvas size
+        canvas.width = 5000; // Set your desired canvas width, must be same as size set in canvas css
+        canvas.height = 5000; // Set your desired canvas height, must be same as size set in canvas css
+
+        // Draw something on the canvas (optional)
+        function drawRect(){
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(50, 50, 200, 100);
+            ctx.fillStyle = 'red';
+            ctx.fillRect(300, 200, 150, 100);
+        }
+
+        // Function to clear canvas
+        function clearCanvas(canvasCTX) {
+            // Clear the canvas
+            canvasCTX.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Function to print information
+        function showStatus(result) {
+            document.getElementById('output').innerHTML = result;
+        }
+
+        // Function to draw ellipse at click position
+        function drawEllipse(canvasElement, event) {
+            let rect = canvasElement.getBoundingClientRect();
+            var x = event.clientX - rect.left;
+            var y = event.clientY - rect.top;
+
+            var radiusX = 80
+            var radiusY = 30
+            var rotation = 0
+            var startAngle = 0
+            var endAngle = 2 * Math.PI
+            // Draw ellipse
+            var canvasCTX = canvasElement.getContext('2d');
+            canvasCTX.beginPath();
+            canvasCTX.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle);
+            canvasCTX.fillStyle = 'cyan';
+            canvasCTX.strokeStyle = 'black';
+            canvasCTX.lineWidth = 2;
+            canvasCTX.fill();
+            canvasCTX.stroke();
+            canvasCTX.closePath();
+        }
+
+        // Function to draw text at click position
+        function drawText(canvasElement, event) {
+            let rect = canvasElement.getBoundingClientRect();
+            var canvasCTX = canvasElement.getContext('2d');
+            canvasCTX.font = "16px Arial";
+            canvasCTX.fillStyle = "black";
+            var txt = "Hello world";
+            textOrg = getTextDimensions(canvasCTX, txt)
+            var x = event.clientX - rect.left - (textOrg[0]/2);
+            var y = event.clientY - rect.top + (textOrg[1]/2);
+            canvasCTX.fillText(txt, x, y);
+            //console.log("Clicked Coords: " + event.clientY)
+            //console.log("Canvas Top: " + rect.top)
+            //console.log("Text height: " + textOrg[1])
+            //console.log("Text X: " + x)
+            //console.log("Text Y: " + y)
+        }
+
+        function getTextDimensions(canvasCTX, text) {
+            var fM = canvasCTX.measureText(text);
+            var txtH = fM.actualBoundingBoxAscent; // + fM.actualBoundingBoxDescent;
+            var txtW = fM.width
+            return [txtW, txtH]
+        }
+        // Add click event listener to the canvas
+        canvas.addEventListener('click', function(event){
+            let rect = canvas.getBoundingClientRect();
+            var x = event.clientX - rect.left;
+            var y = event.clientY - rect.top;
+            var result = "Clicked X Coords:" + event.clientX + "| Canvas X Coords:" + x + "|";
+            showStatus(result);
+            drawEllipse(canvas, event);
+            drawText(canvas, event);
+        });
+    </script>
+{% endblock %}

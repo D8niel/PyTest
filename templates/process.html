@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Process {% endblock %}</h1>
+
+    <hr>
+
+   <input type="text" id="input">
+    <button onclick="sendData()">Send Data</button>
+    <div id="output"></div>
+{% endblock %}

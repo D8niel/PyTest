@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Users {% endblock %}</h1>
+    {% if request.form['user_id']|length %}
+        <p>This user is {{ request.form['user_id'] }}.</p>
+    {% else %}
+        <p>There is no user selected. Please type in a user.</p>
+    {% endif %}
+
+    <hr>
+    <form method="post">
+        <input type="text" name="user_id" value="{{ request.form['user_id'] }}">
+        <input type="submit">
+    </form>
+{% endblock %}

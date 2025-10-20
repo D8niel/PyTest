@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Page</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='/images/favicon.ico') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='/styles/style.css') }}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="output"></div>
+    <script>
+        function returnTwoValues() {
+            return [2, 4]
+        }
+        function showResult(result) {
+            document.getElementById('output').innerHTML = result;
+        }
+        function main() {
+            var list = returnTwoValues()
+            showResult(list[0])
+        }
+        main()
+    </script>
+</body>
+</html>
