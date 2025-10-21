@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 
-__production__ = False
+__production__ = True
 
 import datetime
 from flask import Flask, render_template, request, jsonify
@@ -40,8 +40,18 @@ def maps():
         return jsonify(resultFromFlask=result)  # return the result to JavaScript
 
 
-@app.route('/about/')
-def about():
-    return render_template('about.html')
+@app.route('/files/')
+def files():
+    with open("test.txt", "w") as f:
+        f.write("File written!")
+    return render_template('files.html')
+
+
+if __name__ == "__main__":
+    if not __production__:
+         app.run()
+    # else:
+    #     from waitress import serve
+    #     serve(app, host='0.0.0.0', port=80)
 
 
