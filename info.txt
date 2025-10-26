@@ -8,6 +8,21 @@ https://dashboard.render.com/
 daniel.sk.sim@gmail.com
 RenderRender
 
+https://console.aiven.io/login
+daniel.sk.sim@gmail.com
+A1v&nD8n1&l
+PostgreSQL 17
+Name of service: pg-281907f9
+Connect: postgres://avnadmin:AVNS_6BzdMfayzfNaDSkLPYy@pg-281907f9-pytest001.f.aivencloud.com:17050/defaultdb?sslmode=require
+
+pgAdmin4
+Postgres User name:  avnadmin
+Postgres password: AVNS_6BzdMfayzfNaDSkLPYy
+Postgres host: pg-281907f9-pytest001.f.aivencloud.com
+Postgres port: 17050
+
+
+
 ##Launch instructions:
 - create requirements file  pip freeze > requirements.txt
 - Before uploading to Github, set production = True in main.py

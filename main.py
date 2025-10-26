@@ -2,11 +2,18 @@
 
 __production__ = True
 
+import models
+import postgresLib
 import datetime
 from flask import Flask, render_template, request, jsonify
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, static_url_path="", static_folder="static")
-
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://avnadmin:AVNS_6BzdMfayzfNaDSkLPYy@pg-281907f9-pytest001.f.aivencloud.com:17050/PyTest?sslmode=require'
+# Format of the URI is postgresql (not postgre): // Username: Password@HostName:Port/DatabaseName?sslmode=require
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # Recommended for performance
+db = SQLAlchemy(app)
+dbModels = models.initModels(db)
 
 @app.route("/")
 def hello():
@@ -39,12 +46,41 @@ def maps():
         result = data['value'] * 2  # repeats it twice
         return jsonify(resultFromFlask=result)  # return the result to JavaScript
 
-
-@app.route('/develop', methods=['GET', 'POST'])
-def developMtd():
+@app.route('/data', methods=['GET', 'POST'])
+def dataMtd():
     outputString = ""
     if request.method == "GET":
-        return render_template('developFile.html')
+        return render_template('dataFile.html')
+    elif request.method == "POST":
+        if 'tableBtns' in request.form:
+            button_value = request.form['tableBtns']
+            if button_value == 'Create All Tables':
+                postgresLib.createAllTables(app, db)
+                outputString = "All tables have been successfully created. <br>"
+
+            elif button_value == 'Drop All Tables':
+                postgresLib.deleteAllTables(app, db)
+                outputString = "All tables deleted."
+
+            elif button_value == 'Get Postgres Version':
+                outputString = "Version: " + postgresLib.getVersion()
+
+            elif button_value == "Add Data":
+                postgresLib.addData(db, dbModels)
+                outputString = "Data added."
+
+            elif button_value == "Drop Data":
+                postgresLib.dropData(db, dbModels)
+                outputString = "Data dropped."
+
+        return render_template('dataFile.html', outputFieldContent=outputString)
+
+
+@app.route('/forms', methods=['GET', 'POST'])
+def formsMtd():
+    outputString = ""
+    if request.method == "GET":
+        return render_template('formsFile.html')
     elif request.method == "POST":
         if 'particularsBtn' in request.form:
             button_value = request.form['particularsBtn']
@@ -55,7 +91,7 @@ def developMtd():
             elif button_value == 'Delete':
                 outputString += "Record is deleted."
 
-        return render_template('developFile.html', outputFieldContent=outputString)
+        return render_template('formsFile.html', outputFieldContent=outputString)
 
 if __name__ == "__main__":
     if not __production__:

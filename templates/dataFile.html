@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Data {% endblock %}</h1>
+    <h3>This page explores the database functions using Aiven.</h3>
+    <form method="POST" action="/data">
+            <input name="tableBtns" type="submit" value="Get Postgres Version"><br><br>
+            <input name="tableBtns" type="submit" value="Create All Tables"><br><br>
+            <input name="tableBtns" type="submit" value="Add Data"><br><br>
+            <input name="tableBtns" type="submit" value="Drop Data"><br><br>
+            <input name="tableBtns" type="submit" value="Drop All Tables"><br><br>
+    </form>
+    <div>{{ outputFieldContent|safe }}</div>
+{% endblock %}
