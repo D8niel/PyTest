@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 
-__production__ = False
+__production__ = True
 
 import datetime
 from flask import Flask, render_template, request, jsonify
@@ -42,24 +42,20 @@ def maps():
 
 @app.route('/develop', methods=['GET', 'POST'])
 def developMtd():
+    outputString = ""
     if request.method == "GET":
         return render_template('developFile.html')
     elif request.method == "POST":
         if 'particularsBtn' in request.form:
             button_value = request.form['particularsBtn']
             if button_value == 'Save':
-                name = request.form['name']
-                email = request.form['email']
-                message = request.form.get('message', '')  # .get() is safer for optional fields
+                outputString += "Name: " + request.form['name'] + "<br>"
+                outputString += "Email: " + request.form.get('email', '') + "<br>"
+                outputString += "Message: " + request.form.get('message', '') + "<br>"  # .get() is safer for optional fields
             elif button_value == 'Delete':
-                name = "Deleted"
-                email = "Deleted"
-                message = "Deleted"
-            # Process the captured data (e.g., print, save to database, send email)
-            print(f"Name: {name}")
-            print(f"Email: {email}")
-            print(f"Message: {message}")
-        return render_template('developFile.html')
+                outputString += "Record is deleted."
+
+        return render_template('developFile.html', outputFieldContent=outputString)
 
 if __name__ == "__main__":
     if not __production__:
