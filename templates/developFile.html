@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Developer {% endblock %}</h1>
+    <h3>This page will set out commands to test out various functions.</h3>
+
+    <h1>Enter Your Particulars</h1>
+    <form method="POST" action="/develop">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50"></textarea><br><br>
+
+        <input name="particularsBtn" type="submit" value="Save">
+        <input name="particularsBtn" type="submit" value="Delete">
+        <input name="anotherBtn" type="submit" value="Some other button">
+    </form>
+
+    <h1>Output</h1>
+    <div id="output"></div>
+{% endblock %}

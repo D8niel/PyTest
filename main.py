@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 
-__production__ = True
+__production__ = False
 
 import datetime
 from flask import Flask, render_template, request, jsonify
@@ -40,12 +40,26 @@ def maps():
         return jsonify(resultFromFlask=result)  # return the result to JavaScript
 
 
-@app.route('/files/')
-def files():
-    with open("test.txt", "w") as f:
-        f.write("File written!")
-    return render_template('files.html')
-
+@app.route('/develop', methods=['GET', 'POST'])
+def developMtd():
+    if request.method == "GET":
+        return render_template('developFile.html')
+    elif request.method == "POST":
+        if 'particularsBtn' in request.form:
+            button_value = request.form['particularsBtn']
+            if button_value == 'Save':
+                name = request.form['name']
+                email = request.form['email']
+                message = request.form.get('message', '')  # .get() is safer for optional fields
+            elif button_value == 'Delete':
+                name = "Deleted"
+                email = "Deleted"
+                message = "Deleted"
+            # Process the captured data (e.g., print, save to database, send email)
+            print(f"Name: {name}")
+            print(f"Email: {email}")
+            print(f"Message: {message}")
+        return render_template('developFile.html')
 
 if __name__ == "__main__":
     if not __production__:

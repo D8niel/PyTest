@@ -1,0 +1,19 @@
+##Key Information:
+
+https://github.com/
+daniel.sk.sim@gmail.com
+G1thub8pp
+
+https://dashboard.render.com/
+daniel.sk.sim@gmail.com
+RenderRender
+
+##Launch instructions:
+- create requirements file  pip freeze > requirements.txt
+- Before uploading to Github, set production = True in main.py
+- Upload to Github
+
+##Next steps:
+
+
+
