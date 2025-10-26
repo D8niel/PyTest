@@ -1,5 +1,3 @@
-from tkinter.constants import RAISED
-
 import psycopg2
 from flask_sqlalchemy import SQLAlchemy
 
