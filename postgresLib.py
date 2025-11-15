@@ -2,9 +2,8 @@ import psycopg2
 from flask_sqlalchemy import SQLAlchemy
 
 
-def getVersion():
-    conn = psycopg2.connect(
-        'postgres://avnadmin:AVNS_6BzdMfayzfNaDSkLPYy@pg-281907f9-pytest001.f.aivencloud.com:17050/defaultdb?sslmode=require')
+def getVersion(uri):
+    conn = psycopg2.connect(uri)
 
     query_sql = 'SELECT VERSION()'
 

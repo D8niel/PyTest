@@ -12,9 +12,12 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, static_url_path="", static_folder="static")
 
-app.config['SQLALCHEMY_DATABASE_URI'] \
+SQLALCHEMY_DATABASE_URI \
     = ('postgresql://'+os.environ['DATAUSER'] + ':' + os.environ['PASSWORD'] + '@'
        + os.environ['HOST'] + ':' + os.environ['PORT'] + '/'+ os.environ['DATA1'] +'?sslmode=require')
+print(SQLALCHEMY_DATABASE_URI)
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
+
 # Format of the URI is postgresql (not postgre): // Username: Password@HostName:Port/DatabaseName?sslmode=require
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # Recommended for performance
 db = SQLAlchemy(app)
@@ -68,7 +71,7 @@ def dataMtd():
                 outputString = "All tables deleted."
 
             elif button_value == 'Get Postgres Version':
-                outputString = "Version: " + postgresLib.getVersion()
+                outputString = "Version: " + postgresLib.getVersion(SQLALCHEMY_DATABASE_URI)
 
             elif button_value == "Add Data":
                 postgresLib.addData(db, dbModels)
@@ -98,11 +101,14 @@ def formsMtd():
 
         return render_template('formsFile.html', outputFieldContent=outputString)
 
+
+def test():
+    outputString = "Version: " + postgresLib.getVersion(SQLALCHEMY_DATABASE_URI)
+    print(outputString)
+
 if __name__ == "__main__":
     if not __production__:
-         app.run()
-    # else:
-    #     from waitress import serve
-    #     serve(app, host='0.0.0.0', port=80)
+        app.run(host='0.0.0.0', port=8000)
+        # test()
 
 
