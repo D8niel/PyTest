@@ -5,11 +5,16 @@ __production__ = True
 import models
 import postgresLib
 import datetime
+import os
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
+
 app = Flask(__name__, static_url_path="", static_folder="static")
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://avnadmin:AVNS_6BzdMfayzfNaDSkLPYy@pg-281907f9-pytest001.f.aivencloud.com:17050/PyTest?sslmode=require'
+
+app.config['SQLALCHEMY_DATABASE_URI'] \
+    = ('postgresql://'+os.environ['DATAUSER'] + ':' + os.environ['PASSWORD'] + '@'
+       + os.environ['HOST'] + ':' + os.environ['PORT'] + '/'+ os.environ['DATA1'] +'?sslmode=require')
 # Format of the URI is postgresql (not postgre): // Username: Password@HostName:Port/DatabaseName?sslmode=require
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # Recommended for performance
 db = SQLAlchemy(app)
