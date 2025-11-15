@@ -13,9 +13,9 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__, static_url_path="", static_folder="static")
 
 SQLALCHEMY_DATABASE_URI \
-    = ('postgresql://'+os.environ['DATAUSER'] + ':' + os.environ['PASSWORD'] + '@'
-       + os.environ['HOST'] + ':' + os.environ['PORT'] + '/'+ os.environ['DATA1'] +'?sslmode=require')
-print(SQLALCHEMY_DATABASE_URI)
+    = ('postgresql://'+os.environ['DATAUSER'] + ':' + os.environ['DATAPWD'] + '@'
+       + os.environ['DATAHOST'] + ':' + os.environ['DATAPORT'] + '/'+ os.environ['DATA1'] +'?sslmode=require')
+# print(SQLALCHEMY_DATABASE_URI)
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 
 # Format of the URI is postgresql (not postgre): // Username: Password@HostName:Port/DatabaseName?sslmode=require
