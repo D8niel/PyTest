@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 
-__production__ = False
+__production__ = True
 
 import models
 import postgresLib
