@@ -35,3 +35,64 @@ nav li a:hover:not(.active) {
     width: 5000px; /* Occupy full width of the container */
     height: 5000px; /* Occupy full height of the container */
 }
+
+.inputForm {
+    width: 100%;
+    height: 80%;
+    /*border: 2px solid #eee;*/
+}
+.txtFieldHeader {
+    width: 100%;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 48px;
+    margin-bottom: 0;
+    font-weight: bold;
+    font-style: italic;
+    color: #0000aa;
+}
+.inputTxtTitle {
+    width: 100%;
+    box-sizing: border-box; /* Include padding and border in the width calculation. Without this, the input width will exceed form width. */
+    /*border: 2px solid #ccc;*/
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    font-family: Helvetica;
+    font-style: italic;
+    font-size: 24px;
+    color: black;
+}
+
+.textareaContent {
+    resize: none;
+    width: 100%;
+    box-sizing: border-box; /* Include padding and border in the width calculation. Without this, the input width will exceed form width. */
+
+    height: 50vh; /* For 40% screen height */
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+
+    font-family: Helvetica;
+    font-style: italic;
+    font-size: 24px;
+    color: black;
+}
+
+.btnSubmit {
+    border: 2px solid black;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    font-family: Helvetica;
+    font-style: italic;
+    font-size: 40px;
+    font-weight: bold;
+    background-color: #eee;
+    color: #0000aa;
+
+}
+h1 {
+    color: black;
+}

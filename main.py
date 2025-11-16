@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 
-__production__ = True
+__production__ = False
 
 import models
 import postgresLib
@@ -23,7 +23,23 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # Recommended for performan
 db = SQLAlchemy(app)
 dbModels = models.initModels(db)
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
+def inspiration():
+    if request.method == "GET":
+        return render_template('inspiration.html')
+    elif request.method == "POST":
+        if 'submitBtn' in request.form:
+            button_value = request.form['submitBtn']
+            if button_value == 'Submit Inspiration':
+                inspirationTitle = request.form.get('inputTxtInspirationTitle')
+                inspirationContent = request.form.get('textareaInspirationContent')
+                outputString = "Your inspiration title is: " + inspirationTitle + "<br /><br />"
+                outputString += "Your inspiration content is: " + inspirationContent + "<br><br />"
+                print(outputString)
+                outputString = outputString.replace('\n', '<br />')
+        return render_template('inspiration.html', outputFieldContent=outputString)
+
+@app.route("/hello")
 def hello():
     return render_template('index.html', utc_dt=datetime.datetime.utcnow())
 
@@ -108,7 +124,7 @@ def test():
 
 if __name__ == "__main__":
     if not __production__:
-        app.run(host='0.0.0.0', port=8000)
+        app.run(host='0.0.0.0', port=5000)
         # test()
 
 

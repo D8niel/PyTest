@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %}{% endblock %}</h1>
+    <div>{{ outputFieldContent|safe }}</div>
+    <form class="inputForm" method="POST" action="/">
+            <p class="txtFieldHeader">Inspiration Title</p>
+            <input class="inputTxtTitle" name="inputTxtInspirationTitle" type="text"><br><br>
+            <p class="txtFieldHeader">Inspiration</p>
+            <textarea class="textareaContent" name="textareaInspirationContent" rows="10" cols="50"></textarea><br><br>
+            <input class="btnSubmit" name="submitBtn" type="submit" value="Submit Inspiration"><br><br>
+    </form>
+{% endblock %}
