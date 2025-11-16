@@ -33,10 +33,20 @@ def inspiration():
             if button_value == 'Submit Inspiration':
                 inspirationTitle = request.form.get('inputTxtInspirationTitle')
                 inspirationContent = request.form.get('textareaInspirationContent')
-                outputString = "Your inspiration title is: " + inspirationTitle + "<br /><br />"
-                outputString += "Your inspiration content is: " + inspirationContent + "<br><br />"
-                print(outputString)
-                outputString = outputString.replace('\n', '<br />')
+                InspirationClass = dbModels["Inspiration"]
+                inspiration_new = InspirationClass(title=inspirationTitle, description=inspirationContent)
+                try:
+                    db.session.add(inspiration_new)
+                    db.session.commit()
+                except Exception as e:
+                    print("Exception raised: \n", e, "\nEnd of Exception")
+
+                outputString = "Your inspiration has been successfully added. <br /><br />"
+
+                # outputString = "Your inspiration title is: " + inspirationTitle + "<br /><br />"
+                # outputString += "Your inspiration content is: " + inspirationContent + "<br><br />"
+                # outputString = outputString.replace('\n', '<br />')
+
         return render_template('inspiration.html', outputFieldContent=outputString)
 
 @app.route("/hello")
@@ -118,13 +128,9 @@ def formsMtd():
         return render_template('formsFile.html', outputFieldContent=outputString)
 
 
-def test():
-    outputString = "Version: " + postgresLib.getVersion(SQLALCHEMY_DATABASE_URI)
-    print(outputString)
-
 if __name__ == "__main__":
     if not __production__:
-        app.run(host='0.0.0.0', port=5000)
-        # test()
+        app.run(host='0.0.0.0', port=5000) # 0.0.0.0 allows all devices on network to access the webapp.
+
 
 

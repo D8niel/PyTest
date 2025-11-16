@@ -28,4 +28,16 @@ def initModels(db: SQLAlchemy):
             return f'<User {self.title}>'
     returnValue["Book"] = Book
 
+    class Inspiration(db.Model):
+        __tablename__ = "Inspiration"
+        __table_args__ = {"schema": "pytest_schema"}
+        # A specific schema, pytest_schema was set up manually in the database otherwise drop_all does not work.
+        id = db.Column(db.Integer, primary_key=True)
+        title = db.Column(db.String(), unique=True, nullable=False)
+        description = db.Column(db.String())
+
+        def __repr__(self):
+            return f'<Inspiration: {self.title}>'
+    returnValue["Inspiration"] = Inspiration
+
     return returnValue
